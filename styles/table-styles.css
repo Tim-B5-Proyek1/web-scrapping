@@ -1,0 +1,102 @@
+body {
+    background-color: #222; /* Warna latar belakang gelap */
+    color: #fff; /* Warna teks putih */
+    font-family: Arial, sans-serif; /* Ganti jenis font */
+}
+
+header {
+    text-align: center;
+    padding: 20px 0;
+}
+
+.container {
+    width: 80%;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+
+.table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+th, td {
+    padding: 8px;
+    text-align: left;
+}
+
+th {
+    background-color: #444; /* Warna latar belakang header tabel */
+}
+
+th, td {
+    border-bottom: 1px solid #666; /* Garis bawah pada sel header dan sel data */
+}
+
+tr:hover {
+    background-color: #333; /* Warna latar belakang saat dihover */
+}
+
+/* Gaya CSS untuk menata tampilan list */
+.manga-item {
+    position: relative;
+}
+
+.manga-details-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    background-color: rgba(0, 0, 0, 0.8); /* Latar belakang semi-transparan */
+    color: #fff;
+    padding: 20px;
+    display: none;
+}
+
+.manga-item:hover .manga-details-container {
+    display: block; /* Tampilkan saat hover */
+}
+
+.manga-item img {
+    width: 125px;
+    height: auto; /* Untuk menjaga aspek rasio gambar */
+    margin-right: 10px;
+}
+
+.manga-item-title {
+    font-weight: bold;
+}
+
+.manga-item-information {
+    margin-top: 5px;
+}
+
+.manga-item-synopsis {
+    margin-top: 10px;
+}
+
+
+.pagination {
+    margin-top: 20px;
+    display: flex;
+    justify-content: center;
+}
+
+.pagination button {
+    margin-right: 5px;
+    padding: 5px 10px;
+    background-color: #fff;
+    border: 1px solid #dee2e6;
+    cursor: pointer;
+}
+
+.pagination button.active {
+    background-color: #007bff;
+    color: #fff;
+    border-color: #007bff;
+}
+.pagination-wrapper {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}

@@ -1,50 +1,72 @@
 // Fungsi untuk menampilkan detail manga saat hover
 function showMangaDetails(manga, mangaItem) {
-    const detailsContainer = document.createElement('div');
-    detailsContainer.classList.add('manga-details-container');
+    const detailsContainer = document.querySelector('.manga-details-container');
+    if (detailsContainer) {
+        // Bersihkan konten sebelum menambahkan yang baru
+        detailsContainer.innerHTML = '';
 
-    const title = document.createElement('div');
-    title.classList.add('manga-item-title');
-    title.textContent = manga.title;
+        // Buat elemen-elemen detail manga
+        const title = document.createElement('div');
+        title.classList.add('manga-item-title');
+        title.textContent = manga.title;
 
-    const information = document.createElement('div');
-    information.classList.add('manga-item-information');
-    manga.information.forEach(info => {
-        const p = document.createElement('p');
-        p.textContent = info.trim();
-        information.appendChild(p);
-    });
+        const information = document.createElement('div');
+        information.classList.add('manga-item-information');
+        manga.information.forEach(info => {
+            const p = document.createElement('p');
+            p.textContent = info.trim();
+            information.appendChild(p);
+        });
 
-    const synopsis = document.createElement('div');
-    synopsis.classList.add('manga-item-synopsis');
-    synopsis.textContent = manga.synopsis;
+        const synopsis = document.createElement('div');
+        synopsis.classList.add('manga-item-synopsis');
+        synopsis.textContent = manga.synopsis;
 
-    detailsContainer.appendChild(title);
-    detailsContainer.appendChild(information);
-    detailsContainer.appendChild(synopsis);
+        // Tambahkan elemen-elemen detail ke dalam container
+        detailsContainer.appendChild(title);
+        detailsContainer.appendChild(information);
+        detailsContainer.appendChild(synopsis);
 
-    mangaItem.appendChild(detailsContainer);
+        // Mengatur posisi manga details container agar muncul di bawah manga item yang di-hover
+        detailsContainer.style.top = mangaItem.offsetTop + mangaItem.offsetHeight + 'px';
+        detailsContainer.style.left = mangaItem.offsetLeft + 'px';
 
-    // Menambahkan event listener untuk menyembunyikan detail saat kursor meninggalkan
-    mangaItem.addEventListener('mouseleave', () => {
-        hideMangaDetails(mangaItem);
-    });
+        // Tampilkan manga details container
+        detailsContainer.style.display = 'block';
+    } else {
+        const detailsContainer = document.createElement('div');
+        detailsContainer.classList.add('manga-details-container');
 
-    // Menambahkan event listener untuk menyembunyikan detail saat kursor meninggalkan detail itu sendiri
-    detailsContainer.addEventListener('mouseleave', (event) => {
-        // Menggunakan contains untuk memeriksa apakah event.relatedTarget adalah bagian dari mangaItem
-        if (!mangaItem.contains(event.relatedTarget)) {
-            hideMangaDetails(mangaItem);
-        }
-    });
+        const title = document.createElement('div');
+        title.classList.add('manga-item-title');
+        title.textContent = manga.title;
+
+        const information = document.createElement('div');
+        information.classList.add('manga-item-information');
+        manga.information.forEach(info => {
+            const p = document.createElement('p');
+            p.textContent = info.trim();
+            information.appendChild(p);
+        });
+
+        const synopsis = document.createElement('div');
+        synopsis.classList.add('manga-item-synopsis');
+        synopsis.textContent = manga.synopsis;
+
+        detailsContainer.appendChild(title);
+        detailsContainer.appendChild(information);
+        detailsContainer.appendChild(synopsis);
+
+        mangaItem.appendChild(detailsContainer);
+    }
 }
 
+
+
 // Fungsi untuk menyembunyikan detail manga saat hover berakhir
-function hideMangaDetails(mangaItem) {
-    const detailsContainer = mangaItem.querySelector('.manga-details-container');
-    if (detailsContainer) {
-        mangaItem.removeChild(detailsContainer);
-    }
+function hideMangaDetails() {
+    const detailsContainer = document.getElementById('manga-details-container');
+    detailsContainer.style.display = 'none'; // Sembunyikan manga details container
 }
 
 // Membaca file hasil.json
@@ -57,7 +79,7 @@ fetch('hasil.json')
         const itemsPerPage = 20;
         let currentPage = 1;
 
-        // Fungsi untuk menampilkan data di halaman yang dipilih
+        // Function to display manga data in the selected page
         function displayManga(page) {
             mangaList.innerHTML = '';
 
@@ -66,37 +88,42 @@ fetch('hasil.json')
             const currentManga = data.slice(startIndex, endIndex);
 
             currentManga.forEach(manga => {
-                const mangaItem = document.createElement('div');
-                mangaItem.classList.add('manga-item');
+                const row = document.createElement('tr');
 
-                // Menambahkan gambar
+                // Image column
+                const imageColumn = document.createElement('td');
                 const image = document.createElement('img');
                 image.src = manga.image;
-                mangaItem.appendChild(image);
+                image.width = 50; // Adjust the width of the image
+                image.height = 70; // Adjust the height of the image
+                imageColumn.appendChild(image);
+                row.appendChild(imageColumn);
 
-                // Menambahkan detail manga
-                const details = document.createElement('div');
-                details.classList.add('manga-item-details');
+                // Title column
+                const titleColumn = document.createElement('td');
+                titleColumn.textContent = manga.title;
+                row.appendChild(titleColumn);
 
-                const title = document.createElement('div');
-                title.classList.add('manga-item-title');
-                title.textContent = manga.title;
-                details.appendChild(title);
+                // Rank column
+                const rankColumn = document.createElement('td');
+                rankColumn.textContent = manga.rank;
+                row.appendChild(rankColumn);
 
-                mangaItem.appendChild(details);
+                // Popularity column
+                const popularityColumn = document.createElement('td');
+                popularityColumn.textContent = manga.popularity;
+                row.appendChild(popularityColumn);
 
-                // Menambahkan event listener untuk menampilkan detail saat hover
-                mangaItem.addEventListener('mouseover', () => {
-                    showMangaDetails(manga, mangaItem);
+                mangaList.appendChild(row);
+
+                // Add event listeners for hover effect
+                row.addEventListener('mouseenter', () => {
+                    showMangaDetails(manga, row);
                 });
 
-                // Menambahkan event listener untuk menyembunyikan detail saat hover berakhir
-                mangaItem.addEventListener('mouseleave', () => {
-                    hideMangaDetails(mangaItem);
+                row.addEventListener('mouseleave', () => {
+                    hideMangaDetails();
                 });
-
-                // Menambahkan item manga ke dalam list
-                mangaList.appendChild(mangaItem);
             });
         }
 
@@ -118,6 +145,9 @@ fetch('hasil.json')
                 startPage = Math.floor((currentPage - 1) / 10) * 10 + 1;
                 endPage = Math.min(startPage + 9, pageCount);
             }
+
+            const paginationWrapper = document.createElement('div');
+            paginationWrapper.classList.add('pagination-wrapper');
 
             const firstButton = document.createElement('button');
             firstButton.textContent = 'First';
@@ -197,8 +227,15 @@ fetch('hasil.json')
                 updatePagination();
             });
             paginationContainer.appendChild(lastButton);
-        }
 
+             // Menambahkan teks jumlah halaman ke dalam paginationWrapper
+            const pageInfo = document.createElement('div');
+            pageInfo.textContent = `Page ${currentPage} of ${pageCount}`;
+            paginationWrapper.appendChild(pageInfo);
+
+            // Menambahkan paginationWrapper ke dalam paginationContainer
+            paginationContainer.appendChild(paginationWrapper);
+        }
 
         // Fungsi untuk memperbarui tampilan pagination saat navigasi dilakukan
         function updatePagination() {

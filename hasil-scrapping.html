@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Web Scrapping Manga</title>
+    <link rel="stylesheet" href="styles/table-styles.css">
+    <style>
+        /* Style untuk tombol */
+        .my-button {
+            position: absolute;
+            top: 0;
+            right: 0;
+            margin: 10px;
+            padding: 10px 20px;
+            background-color: #007bff; /* Warna latar belakang */
+            color: #fff; /* Warna teks */
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            text-decoration: none;
+            transition: background-color 0.3s ease;
+        }
+
+        /* Hover effect */
+        .my-button:hover {
+            background-color: #0056b3; /* Warna latar belakang saat dihover */
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Top Anime Series</h1>
+        <h3>Web Scrapping Oleh Tim B5 D4-1B Teknik Informatika 2024</h3>
+    </header>
+    <main>
+        <a href="index.html" class="my-button">Back to Dashboard</a>
+        <div class="container">
+            <div class="table-responsive">
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th scope="col">Image</th>
+                            <th scope="col">Title</th>
+                            <th scope="col">Rank</th>
+                            <th scope="col">Popularity</th>
+                        </tr>
+                    </thead>
+                    <tbody id="manga-list">
+                        <!-- Data manga akan ditambahkan di sini -->
+                    </tbody>
+                </table>
+            </div>
+            <div id="pagination" class="pagination"></div>
+        </div>
+    </main>
+
+    <div id="manga-details-container" class="manga-details-container"></div>
+
+    <script src="scripts/table-script.js"></script>
+</body>
+</html>
