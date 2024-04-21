@@ -7,15 +7,6 @@ import scrapy
 
 
 class MangaItem(scrapy.Item):
-    rank = scrapy.Field()
-    popularity = scrapy.Field()
-    title = scrapy.Field()
-    image = scrapy.Field()
-    score = scrapy.Field()
-    sinopsis = scrapy.Field()
-    tipe = scrapy.Field()
-    genre = scrapy.Field()
-    theme = scrapy.Field()
-    serialization = scrapy.Field()
-    author = scrapy.Field()
+    # define the fields for your item here like:
+    # name = scrapy.Field()
     pass

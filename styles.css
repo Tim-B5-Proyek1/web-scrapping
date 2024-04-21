@@ -1,0 +1,64 @@
+/* Gaya CSS untuk menata tampilan list */
+.manga-item {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 10px;
+    position: relative; /* Diperlukan untuk mengatur posisi detail */
+}
+
+.manga-item img {
+    width: 50px;
+    height: 70px;
+    margin-right: 10px;
+}
+
+.manga-item-details {
+    flex: 1;
+}
+
+.manga-item-title {
+    font-weight: bold;
+}
+
+.manga-item-information {
+    margin-top: 5px;
+}
+
+.manga-item-synopsis {
+    margin-top: 10px;
+}
+
+.manga-details-container {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 10px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    z-index: 1;
+    width: calc(100% - 20px); /* Mengikuti lebar manga item */
+}
+
+.pagination {
+    margin-top: 20px;
+    display: flex;
+    justify-content: center;
+}
+
+.pagination button {
+    margin-right: 5px;
+    padding: 5px 10px;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    cursor: pointer;
+}
+
+.pagination button.active {
+    background-color: #007bff;
+    color: #fff;
+}
